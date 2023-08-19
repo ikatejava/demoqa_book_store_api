@@ -53,4 +53,102 @@ ____
 - Парсинг всей информации об одной выбранной книге;
 - Попытка получить информацию о книге с несуществующим в магазине ISBN.
 
+  ____
+
+<a id="jenkins"></a>
+> ## <img width="4%" style="vertical-align:middle" title="Jenkins" src="media/logos/Jenkins.svg"> Сборка в [Jenkins](https://jenkins.autotests.cloud/job/demoqa_api/)
+
+Для запуска сборки необходимо перейти в раздел <code>Собрать с параметрами</code> и нажать кнопку <code>Собрать</code>.
+
+<p align="center">
+<img title="Jenkins Build" src="media/screens/jenkins_build.png">
+</p>
+
+После выполнения сборки в блоке <code>История сборок</code> напротив номера сборки появляются значки <code>Allure
+Report</code> и <code>Allure TestOps</code>, при клике на которые открываются страницы со сформированным html-отчетом и
+тестовой документацией соответственно.
 ____
+
+<a id="console"></a>
+> ## :ballot_box_with_check: <a name="Запуск тестов из терминала">**Запуск тестов из терминала:**</a>
+
+### Команда для терминала IDE для локального запуска тестов:
+
+```
+gradle clean test
+```
+____
+
+<a id="allure"></a>
+> ## <img alt="Allure" height="25" src="media/logos/Allure.svg" width="25"/></a> <a name="Allure"></a>Allure [Report](https://jenkins.autotests.cloud/job/demoqa_api/7/allure/)</a>
+
+### Основная страница отчёта
+
+<p align="center">  
+<img title="Allure Overview Dashboard" src="media/screens/allure_main.png" width="850">  
+</p>  
+
+### Тест-кейсы
+
+<p align="center">  
+<img title="Allure Tests" src="media/screens/allure_successful_auth_with_token_case.png" width="850">  
+
+<img title="Allure Tests" src="media/screens/allure_check_all_books_case.png" width="850">
+</p>
+
+### Графики
+
+<p align="center">  
+<img title="Allure Graphics" src="media/screens/allure_graph1.png" width="850">
+
+<img title="Allure Graphics" src="media/screens/allure_graph2.png" width="850">  
+</p>
+
+____
+
+<a id="allure-testops"></a>
+> ## <img src="media/logos/Allure_TO.svg" title="Allure TestOps" width="4%"/> </a>Интеграция с <a target="_blank" href="https://allure.autotests.cloud/launch/28938">Allure TestOps</a>
+
+Выполнена интеграция сборки <code>Jenkins</code> с <code>Allure TestOps</code>.
+Результат выполнения автотестов отображается в <code>Allure TestOps</code>
+На Dashboard в <code>Allure TestOps</code> отображена статистика пройденных тестов.
+
+## Allure TestOps Dashboard
+
+<p align="center">  
+<img title="Allure TestOps Dashboard" src="media/screens/allure_to_dashboards.png" width="850">
+</p>  
+
+## Тест-кейсы
+
+<p align="center">  
+<img title="Allure Tests" src="media/screens/allure_to_successful_registration_case.png" width="850">  
+
+<img title="Allure Tests" src="media/screens/allure_to_check_one_book_info_case.png" width="850">  
+</p>
+
+____
+
+<a id="jira"></a>
+
+> ## <img src="media/logos/Jira.svg" title="Jira" width="4%"/> </a> Интеграция с <a target="_blank" href="https://jira.autotests.cloud/browse/HOMEWORK-854">Jira</a>
+
+<p align="center">  
+<img title="Jira" src="media/screens/jira_plus_allure_to.png" width="850">  
+</p>
+
+____
+
+<a id="telegram"></a>
+
+## <img width="4%" style="vertical-align:middle" title="Telegram" src="media/logos/Telegram.svg"> Уведомления в Telegram с помощью бота
+
+После завершения сборки созданный в <code>Telegram</code> бот автоматически обрабатывает результаты и отправляет
+уведомление со ссылкой на отчет.
+
+<p align="center">
+<img width="70%" title="Telegram Notifications" src="media/screens/tg_notification_msg.png">
+</p>
+
+____
+
