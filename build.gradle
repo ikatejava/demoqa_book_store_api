@@ -1,7 +1,7 @@
 plugins {
     id 'java-library'
     id 'io.freefair.lombok' version '8.2.2'
-    id 'io.qameta.allure' version "2.11.2"
+    id 'io.qameta.allure' version '2.11.2'
 }
 
 group = 'com.demoqa'
@@ -24,9 +24,7 @@ dependencies {
             "org.slf4j:slf4j-simple:$slf4jSimpleVersion",
             "io.rest-assured:json-schema-validator:$restAssuredVersion",
             "com.github.javafaker:javafaker:$javaFakerVersion",
-            "io.qameta.allure:allure-rest-assured:$allureRestAssuredVersion"
-
-    )
+            "io.qameta.allure:allure-rest-assured:$allureRestAssuredVersion")
 }
 
 tasks.withType(Test) {
