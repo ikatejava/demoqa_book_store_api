@@ -24,6 +24,7 @@ public class BookStoreTests {
                 .then()
                 .spec(checkAllBooksInfoResponseSpec200);
     }
+
     @Test
     @Tag("books")
     @DisplayName("Get information about 1 book in the book store")
@@ -48,6 +49,7 @@ public class BookStoreTests {
             assertEquals(gitPocketGuideWebsite, bookInfo.getWebsite());
         });
     }
+
     @Test
     @Tag("books")
     @DisplayName("Get information about book with non-existent ISBN (failure)")

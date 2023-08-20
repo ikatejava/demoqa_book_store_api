@@ -1,10 +1,8 @@
 package com.demoqa.tests;
 
 import com.demoqa.models.GenerateTokenResponseModel;
-import com.demoqa.models.LoginAndRegistrationModel;
 import com.demoqa.models.MistakesResponseModel;
 import com.demoqa.models.RegistrationResponseModel;
-import com.github.javafaker.Faker;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -17,36 +15,27 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AccountTests {
-    Faker faker = new Faker();
+public class AccountTests extends TestBase {
     @Test
     @Tag("user")
     @DisplayName("Successful authorization of existing user")
     void successfulLoginTest() {
-
-        LoginAndRegistrationModel authData = new LoginAndRegistrationModel();
-        authData.setUserName(accountUsername);
-        authData.setPassword(accountValidPassword);
-
         given(accountRequestSpecification)
-                .body(authData)
+                .body(validAuthData)
                 .when()
                 .post(requestLoginURN)
                 .then()
                 .spec(successfulLoginResponseSpec200)
                 .body(equalTo("true"));
     }
+
     @Test
     @Tag("user")
     @DisplayName("Failed authorization with password missing")
     void loginTestWithMissingPassword() {
-
-        LoginAndRegistrationModel authData = new LoginAndRegistrationModel();
-        authData.setUserName(accountUsername);
-
         MistakesResponseModel mistakesResponse = step("Make request", () -> {
             return given(accountRequestSpecification)
-                    .body(authData)
+                    .body(loginOnly)
                     .when()
                     .post(requestLoginURN)
                     .then()
@@ -58,18 +47,14 @@ public class AccountTests {
             assertEquals(responseCode1200Message, mistakesResponse.getMessage());
         });
     }
+
     @Test
     @Tag("user")
     @DisplayName("Failed authorization with wrong password")
     void loginTestWithWrongPassword() {
-
-        LoginAndRegistrationModel authData = new LoginAndRegistrationModel();
-        authData.setUserName(accountUsername);
-        authData.setPassword(accountInvalidPassword);
-
         MistakesResponseModel mistakesResponse = step("Make request", () -> {
             return given(accountRequestSpecification)
-                    .body(authData)
+                    .body(invalidPasswordAuthData)
                     .when()
                     .post(requestLoginURN)
                     .then()
@@ -81,18 +66,14 @@ public class AccountTests {
             assertEquals(responseCode1207Message, mistakesResponse.getMessage());
         });
     }
+
     @Test
     @Tag("user")
     @DisplayName("Successful authorization and token generation")
     void successfulGenerateTokenTest() {
-
-        LoginAndRegistrationModel authData = new LoginAndRegistrationModel();
-        authData.setUserName(accountUsername);
-        authData.setPassword(accountValidPassword);
-
         GenerateTokenResponseModel generateTokenResponse = step("Make request", () -> {
             return given(accountRequestSpecification)
-                    .body(authData)
+                    .body(validAuthData)
                     .when()
                     .post(requestGenerateTokenURN)
                     .then()
@@ -106,17 +87,14 @@ public class AccountTests {
             assertEquals(responseCode200Result, generateTokenResponse.getResult());
         });
     }
+
     @Test
     @Tag("user")
     @DisplayName("Failed authorization and token generation with password missing")
     void generateTokenWithMissingPasswordTest() {
-
-        LoginAndRegistrationModel authData = new LoginAndRegistrationModel();
-        authData.setUserName(accountUsername);
-
         MistakesResponseModel mistakesResponse = step("Make request", () -> {
             return given(accountRequestSpecification)
-                    .body(authData)
+                    .body(loginOnly)
                     .when()
                     .post(requestGenerateTokenURN)
                     .then()
@@ -128,18 +106,14 @@ public class AccountTests {
             assertEquals(responseCode1200Message, mistakesResponse.getMessage());
         });
     }
+
     @Test
     @Tag("user")
     @DisplayName("Failed authorization and token generation with wrong password")
     void generateTokenWithWrongPasswordTest() {
-
-        LoginAndRegistrationModel authData = new LoginAndRegistrationModel();
-        authData.setUserName(accountUsername);
-        authData.setPassword(accountInvalidPassword);
-
         GenerateTokenResponseModel generateTokenResponse = step("Make request", () -> {
             return given(accountRequestSpecification)
-                    .body(authData)
+                    .body(invalidPasswordAuthData)
                     .when()
                     .post(requestGenerateTokenURN)
                     .then()
@@ -153,19 +127,14 @@ public class AccountTests {
             assertEquals(responseGenerateTokenWithWrongPasswordResult, generateTokenResponse.getResult());
         });
     }
+
     @Test
     @Tag("user")
     @DisplayName("New user successful registration")
     void successfulRegistrationTest() {
-
-        LoginAndRegistrationModel regData = new LoginAndRegistrationModel();
-        String userName = faker.name().username();
-        regData.setUserName(userName);
-        regData.setPassword(validPasswordForRegistration);
-
         RegistrationResponseModel registrationResponse = step("Make request", () -> {
             return given(accountRequestSpecification)
-                    .body(regData)
+                    .body(validRegData)
                     .when()
                     .post(requestRegistrationURN)
                     .then()
@@ -174,23 +143,18 @@ public class AccountTests {
         });
         step("Check response 201", () -> {
             registrationResponse.getUserID();
-            assertEquals(userName, registrationResponse.getUsername());
+            assertEquals(fakerUsername, registrationResponse.getUsername());
             registrationResponse.getBooks();
         });
     }
+
     @Test
     @Tag("user")
     @DisplayName("New user failed registration due to incorrect password")
     void registrationWithInvalidPasswordTest() {
-
-        LoginAndRegistrationModel regData = new LoginAndRegistrationModel();
-        String userName = faker.name().username();
-        regData.setUserName(userName);
-        regData.setPassword(invalidPasswordForRegistration);
-
         MistakesResponseModel mistakesResponse = step("Make request", () -> {
             return given(accountRequestSpecification)
-                    .body(regData)
+                    .body(invalidRegData)
                     .when()
                     .post(requestRegistrationURN)
                     .then()
@@ -202,18 +166,14 @@ public class AccountTests {
             assertEquals(responseCode1300Message, mistakesResponse.getMessage());
         });
     }
+
     @Test
     @Tag("user")
     @DisplayName("Failed registration of already existing user")
     void registrationOfExistingUserTest() {
-
-        LoginAndRegistrationModel regData = new LoginAndRegistrationModel();
-        regData.setUserName(accountUsername);
-        regData.setPassword(accountValidPassword);
-
         MistakesResponseModel mistakesResponse = step("Make request", () -> {
             return given(accountRequestSpecification)
-                    .body(regData)
+                    .body(validAuthData)
                     .when()
                     .post(requestRegistrationURN)
                     .then()
