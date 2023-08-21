@@ -2,7 +2,7 @@ package com.demoqa.specs;
 
 import io.restassured.specification.RequestSpecification;
 
-import static in.reqres.helpers.CustomAllureListener.withCustomTemplates;
+import static com.demoqa.helpers.CustomAllureListener.withCustomTemplates;
 import static io.restassured.RestAssured.with;
 import static io.restassured.http.ContentType.JSON;
 
