@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class BookStoreTests {
     @Test
     @Tag("books")
+    @Tag("positive")
     @DisplayName("Get information about all books in the book store")
     void checkAllBooksInfo() {
         given(bookRequestSpecification)
@@ -27,6 +28,7 @@ public class BookStoreTests {
 
     @Test
     @Tag("books")
+    @Tag("positive")
     @DisplayName("Get information about 1 book in the book store")
     void checkBookInfoByExistingISBN() {
         BookInfoModel bookInfo = step("Make request", () -> {
@@ -52,6 +54,7 @@ public class BookStoreTests {
 
     @Test
     @Tag("books")
+    @Tag("negative")
     @DisplayName("Get information about book with non-existent ISBN (failure)")
     void checkBookInfoByNonExistentISBN() {
         MistakesResponseModel mistakesResponse = step("Make request", () -> {

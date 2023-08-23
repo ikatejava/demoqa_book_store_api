@@ -51,6 +51,18 @@ task books_test(type: Test) {
     }
 }
 
+task positive_test(type: Test) {
+    useJUnitPlatform {
+        includeTags("positive")
+    }
+}
+
+task negative_test(type: Test) {
+    useJUnitPlatform {
+        includeTags("negative")
+    }
+}
+
 compileJava {
     options.encoding = 'UTF-8'
 }

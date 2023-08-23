@@ -18,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class AccountTests extends TestBase {
     @Test
     @Tag("user")
+    @Tag("positive")
     @DisplayName("Successful authorization of existing user")
     void successfulLoginTest() {
         given(accountRequestSpecification)
@@ -31,6 +32,7 @@ public class AccountTests extends TestBase {
 
     @Test
     @Tag("user")
+    @Tag("negative")
     @DisplayName("Failed authorization with password missing")
     void loginTestWithMissingPassword() {
         MistakesResponseModel mistakesResponse = step("Make request", () -> {
@@ -50,6 +52,7 @@ public class AccountTests extends TestBase {
 
     @Test
     @Tag("user")
+    @Tag("negative")
     @DisplayName("Failed authorization with wrong password")
     void loginTestWithWrongPassword() {
         MistakesResponseModel mistakesResponse = step("Make request", () -> {
@@ -69,6 +72,7 @@ public class AccountTests extends TestBase {
 
     @Test
     @Tag("user")
+    @Tag("positive")
     @DisplayName("Successful authorization and token generation")
     void successfulGenerateTokenTest() {
         GenerateTokenResponseModel generateTokenResponse = step("Make request", () -> {
@@ -90,6 +94,7 @@ public class AccountTests extends TestBase {
 
     @Test
     @Tag("user")
+    @Tag("negative")
     @DisplayName("Failed authorization and token generation with password missing")
     void generateTokenWithMissingPasswordTest() {
         MistakesResponseModel mistakesResponse = step("Make request", () -> {
@@ -109,6 +114,7 @@ public class AccountTests extends TestBase {
 
     @Test
     @Tag("user")
+    @Tag("negative")
     @DisplayName("Failed authorization and token generation with wrong password")
     void generateTokenWithWrongPasswordTest() {
         GenerateTokenResponseModel generateTokenResponse = step("Make request", () -> {
@@ -130,6 +136,7 @@ public class AccountTests extends TestBase {
 
     @Test
     @Tag("user")
+    @Tag("positive")
     @DisplayName("New user successful registration")
     void successfulRegistrationTest() {
         RegistrationResponseModel registrationResponse = step("Make request", () -> {
@@ -150,6 +157,7 @@ public class AccountTests extends TestBase {
 
     @Test
     @Tag("user")
+    @Tag("negative")
     @DisplayName("New user failed registration due to incorrect password")
     void registrationWithInvalidPasswordTest() {
         MistakesResponseModel mistakesResponse = step("Make request", () -> {
@@ -169,6 +177,7 @@ public class AccountTests extends TestBase {
 
     @Test
     @Tag("user")
+    @Tag("negative")
     @DisplayName("Failed registration of already existing user")
     void registrationOfExistingUserTest() {
         MistakesResponseModel mistakesResponse = step("Make request", () -> {
