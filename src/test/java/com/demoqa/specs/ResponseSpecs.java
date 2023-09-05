@@ -66,7 +66,6 @@ public class ResponseSpecs {
             .log(BODY)
             .expectStatusCode(400)
             .expectBody("code", notNullValue())
-
             .expectBody("message", notNullValue())
             .build();
 
