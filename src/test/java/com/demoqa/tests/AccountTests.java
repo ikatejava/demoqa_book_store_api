@@ -14,6 +14,7 @@ import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class AccountTests extends TestBase {
     @Test
@@ -85,8 +86,6 @@ public class AccountTests extends TestBase {
                     .extract().as(GenerateTokenResponseModel.class);
         });
         step("Check response 200", () -> {
-            generateTokenResponse.getToken();
-            generateTokenResponse.getExpires();
             assertEquals(responseCode200Status, generateTokenResponse.getStatus());
             assertEquals(responseCode200Result, generateTokenResponse.getResult());
         });
@@ -127,8 +126,8 @@ public class AccountTests extends TestBase {
                     .extract().as(GenerateTokenResponseModel.class);
         });
         step("Check response 200", () -> {
-            assertEquals(null, generateTokenResponse.getToken());
-            assertEquals(null, generateTokenResponse.getExpires());
+            assertNull(generateTokenResponse.getToken());
+            assertNull(generateTokenResponse.getExpires());
             assertEquals(responseGenerateTokenWithWrongPasswordStatus, generateTokenResponse.getStatus());
             assertEquals(responseGenerateTokenWithWrongPasswordResult, generateTokenResponse.getResult());
         });
@@ -149,9 +148,7 @@ public class AccountTests extends TestBase {
                     .extract().as(RegistrationResponseModel.class);
         });
         step("Check response 201", () -> {
-            registrationResponse.getUserID();
             assertEquals(fakerUsername, registrationResponse.getUsername());
-            registrationResponse.getBooks();
         });
     }
 
