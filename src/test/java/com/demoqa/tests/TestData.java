@@ -53,6 +53,4 @@ public class TestData {
 
     public static int
             gitPocketGuideNumberOfPages = 234;
-
-
 }

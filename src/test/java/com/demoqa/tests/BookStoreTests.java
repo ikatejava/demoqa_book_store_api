@@ -31,14 +31,13 @@ public class BookStoreTests {
     @Tag("positive")
     @DisplayName("Get information about 1 book in the book store")
     void checkBookInfoByExistingISBN() {
-        BookInfoModel bookInfo = step("Make request", () -> {
-            return given(bookRequestSpecification)
-                    .when()
-                    .get(requestCheckBookInfoURN + gitPocketGuideISBN)
-                    .then()
-                    .spec(checkBookInfoResponseSpec200)
-                    .extract().as(BookInfoModel.class);
-        });
+        BookInfoModel bookInfo = step("Make request", () ->
+                given(bookRequestSpecification)
+                        .when()
+                        .get(requestCheckBookInfoURN + gitPocketGuideISBN)
+                        .then()
+                        .spec(checkBookInfoResponseSpec200)
+                        .extract().as(BookInfoModel.class));
         step("Check response 200", () -> {
             assertEquals(gitPocketGuideISBN, bookInfo.getIsbn());
             assertEquals(gitPocketGuideTitle, bookInfo.getTitle());
@@ -52,19 +51,19 @@ public class BookStoreTests {
         });
     }
 
+
     @Test
     @Tag("books")
     @Tag("negative")
     @DisplayName("Get information about book with non-existent ISBN (failure)")
     void checkBookInfoByNonExistentISBN() {
-        MistakesResponseModel mistakesResponse = step("Make request", () -> {
-            return given(bookRequestSpecification)
-                    .when()
-                    .get(requestCheckBookInfoURN + nonExistentISBN)
-                    .then()
-                    .spec(checkBookInfoByNonExistentISBNResponseSpec400)
-                    .extract().as(MistakesResponseModel.class);
-        });
+        MistakesResponseModel mistakesResponse = step("Make request", () ->
+                given(bookRequestSpecification)
+                        .when()
+                        .get(requestCheckBookInfoURN + nonExistentISBN)
+                        .then()
+                        .spec(checkBookInfoByNonExistentISBNResponseSpec400)
+                        .extract().as(MistakesResponseModel.class));
         step("Check response 400", () -> {
             assertEquals(responseCode1205, mistakesResponse.getCode());
             assertEquals(responseCode1205Message, mistakesResponse.getMessage());
